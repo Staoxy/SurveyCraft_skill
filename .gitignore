@@ -1,0 +1,11 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs & temp
+*.log
+*.tmp
+
+# Environment / secrets
+.env
+.env.*
