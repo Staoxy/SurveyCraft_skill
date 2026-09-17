@@ -9,3 +9,15 @@ Thumbs.db
 # Environment / secrets
 .env
 .env.*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Survey project artifacts（survey.json 保留版本管理）
+surveys/*/data/
+surveys/*/outputs/
+surveys/*/report/
+surveys/*/exports/

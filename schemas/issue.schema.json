@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "issue.schema.json",
+  "title": "SurveyCraft Issue（问卷审查/数据质量的统一发现格式）",
+  "type": "object",
+  "required": ["id", "severity", "category", "source", "message"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "target": {
+      "type": "object",
+      "properties": {
+        "question_id": { "type": "string" },
+        "option_ids": { "type": "array", "items": { "type": "string" } },
+        "row_ids": { "type": "array", "items": { "type": "string" } },
+        "logic_id": { "type": "string" },
+        "respondent_id": { "type": "string" }
+      }
+    },
+    "severity": { "enum": ["ERROR", "WARNING", "INFO"] },
+    "category": { "type": "string" },
+    "source": { "enum": ["rule", "agent", "user"] },
+    "rule_id": { "type": "string" },
+    "message": { "type": "string" },
+    "suggestion": { "type": "string" }
+  }
+}

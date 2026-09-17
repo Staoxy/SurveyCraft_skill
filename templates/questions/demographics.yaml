@@ -1,0 +1,61 @@
+# 人口学题目模板（SurveyCraft 题目库）
+# 用法：Agent 按 construct/测量层次取用并适配主题；选项区间不得重叠（见 survey_check 规则 OPT-001）
+questions:
+  - id: QD01
+    type: single_choice
+    text: 您的性别是
+    construct: 人口学
+    variable: gender
+    analysis_role: grouping_variable
+    options:
+      - { id: A, label: 男, value: 1 }
+      - { id: B, label: 女, value: 2 }
+
+  - id: QD02
+    type: single_choice
+    text: 您的年级是
+    construct: 人口学
+    variable: grade
+    analysis_role: grouping_variable
+    options:
+      - { id: A, label: 大一, value: 1 }
+      - { id: B, label: 大二, value: 2 }
+      - { id: C, label: 大三, value: 3 }
+      - { id: D, label: 大四, value: 4 }
+      - { id: E, label: 研究生及以上, value: 5 }
+
+  - id: QD03
+    type: single_choice
+    text: 您的年龄是
+    construct: 人口学
+    variable: age_group
+    options:
+      - { id: A, label: 18-19, value: 1 }
+      - { id: B, label: 20-22, value: 2 }
+      - { id: C, label: 23-25, value: 3 }
+      - { id: D, label: 26及以上, value: 4 }
+
+  - id: QD04
+    type: single_choice
+    text: 您的专业类别是
+    construct: 人口学
+    variable: major
+    options:
+      - { id: A, label: 人文社科类, value: 1 }
+      - { id: B, label: 理工类, value: 2 }
+      - { id: C, label: 经管类, value: 3 }
+      - { id: D, label: 医学类, value: 4 }
+      - { id: E, label: 艺术体育类, value: 5 }
+      - { id: F, label: 其他, value: 99, other_text: true }
+
+  - id: QD05
+    type: single_choice
+    text: 您的月生活费大约是
+    construct: 人口学
+    variable: monthly_expense
+    options:
+      - { id: A, label: 1000元以下, value: 1 }
+      - { id: B, label: 1000-1499元, value: 2 }
+      - { id: C, label: 1500-1999元, value: 3 }
+      - { id: D, label: 2000-2999元, value: 4 }
+      - { id: E, label: 3000元及以上, value: 5 }

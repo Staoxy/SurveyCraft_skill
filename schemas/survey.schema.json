@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "survey.schema.json",
+  "title": "SurveyCraft Survey Schema V1.1",
+  "type": "object",
+  "required": ["survey", "sections", "questions", "logic"],
+  "additionalProperties": false,
+  "properties": {
+    "survey": {
+      "type": "object",
+      "required": ["id", "title", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_]*$" },
+        "title": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "intro": { "type": "string" },
+        "changelog": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["version", "note"],
+            "properties": {
+              "version": { "type": "string" },
+              "date": { "type": "string" },
+              "note": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "question_ids"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string", "minLength": 1 },
+          "question_ids": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "questions": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/question" } },
+    "logic": { "type": "array", "items": { "$ref": "#/definitions/logicRule" } },
+    "metadata": { "type": "object" }
+  },
+  "definitions": {
+    "question": {
+      "type": "object",
+      "required": ["id", "type", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^Q[0-9]+$" },
+        "type": {
+          "enum": [
+            "single_choice", "multiple_choice", "text", "textarea", "number",
+            "integer", "decimal", "date", "time", "rating", "likert",
+            "matrix_single", "matrix_multiple", "ranking", "yes_no", "nps"
+          ]
+        },
+        "text": { "type": "string", "minLength": 1 },
+        "construct": { "type": ["string", "null"] },
+        "variable": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "variable_prefix": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "options": { "type": "array", "minItems": 2, "items": { "$ref": "#/definitions/option" } },
+        "rows": { "type": "array", "minItems": 2, "items": { "$ref": "#/definitions/matrixRow" } },
+        "scale": { "$ref": "#/definitions/scale" },
+        "reverse_scored": { "type": "boolean", "default": false },
+        "required": { "type": "boolean", "default": true },
+        "attention_check": { "type": "boolean", "default": false },
+        "analysis_role": {
+          "enum": ["independent_variable", "dependent_variable", "control_variable", "grouping_variable", "identifier", null]
+        },
+        "measurement_level": {
+          "enum": ["nominal", "ordinal", "interval", "ratio", null]
+        },
+        "randomize_options": { "type": "boolean" },
+        "note": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "enum": ["single_choice", "multiple_choice", "ranking"] } } },
+          "then": { "required": ["options"] }
+        },
+        {
+          "if": { "properties": { "type": { "enum": ["matrix_single", "matrix_multiple"] } } },
+          "then": { "required": ["rows", "scale"] }
+        },
+        {
+          "if": { "properties": { "type": { "enum": ["likert", "rating"] } } },
+          "then": { "required": ["scale"] }
+        }
+      ]
+    },
+    "option": {
+      "type": "object",
+      "required": ["id", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "value": { "type": ["number", "null"] },
+        "other_text": { "type": "boolean", "default": false }
+      }
+    },
+    "matrixRow": {
+      "type": "object",
+      "required": ["id", "text", "variable"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string", "minLength": 1 },
+        "variable": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" }
+      }
+    },
+    "scale": {
+      "type": "object",
+      "required": ["min", "max", "labels", "values"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "labels": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 } },
+        "values": { "type": "array", "minItems": 2, "items": { "type": "number" } }
+      }
+    },
+    "logicRule": {
+      "type": "object",
+      "required": ["id", "type", "target", "condition"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "enum": ["visibleIf", "skip", "termination"] },
+        "target": { "type": "string" },
+        "condition": {
+          "type": "object",
+          "required": ["question", "operator"],
+          "properties": {
+            "question": { "type": "string" },
+            "operator": { "enum": ["in", "not_in", "answered", "not_answered", "eq", "lt", "gt"] },
+            "value": {}
+          }
+        }
+      }
+    }
+  }
+}

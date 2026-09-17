@@ -1,0 +1,97 @@
+{
+  "survey": { "id": "BAD_TEST_001", "title": "坏问卷（用于审查规则测试）", "version": "1.0.0" },
+  "sections": [
+    { "id": "S1", "title": "全部", "question_ids": ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08"] }
+  ],
+  "questions": [
+    {
+      "id": "Q01",
+      "type": "single_choice",
+      "text": "您的年龄是",
+      "variable": "age_group",
+      "options": [
+        { "id": "A", "label": "18-20", "value": 1 },
+        { "id": "B", "label": "20-22", "value": 2 },
+        { "id": "C", "label": "22-24", "value": 3 }
+      ]
+    },
+    {
+      "id": "Q02",
+      "type": "likert",
+      "text": "我对课程满意",
+      "variable": "satisfaction",
+      "scale": { "min": 1, "max": 5, "labels": ["不同意", "一般", "同意"], "values": [1, 2, 3, 4, 5] }
+    },
+    {
+      "id": "Q03",
+      "type": "single_choice",
+      "text": "您通常的学习方式是",
+      "variable": "study_way",
+      "options": [
+        { "id": "A", "label": "自学", "value": 1 },
+        { "id": "B", "label": "自学", "value": 2 },
+        { "id": "C", "label": "小组学习" }
+      ]
+    },
+    {
+      "id": "Q04",
+      "type": "single_choice",
+      "text": "您是否使用过AI学习工具",
+      "variable": "used_ai",
+      "options": [
+        { "id": "A", "label": "使用过", "value": 1 },
+        { "id": "B", "label": "没有使用过", "value": 2 }
+      ]
+    },
+    {
+      "id": "Q05",
+      "type": "likert",
+      "text": "工具响应很快",
+      "variable": "fast",
+      "scale": {
+        "min": 1, "max": 5,
+        "labels": ["非常同意", "同意", "一般", "不同意", "非常不同意"],
+        "values": [1, 2, 3, 4, 5]
+      }
+    },
+    {
+      "id": "Q06",
+      "type": "matrix_single",
+      "text": "请评价以下方面",
+      "variable_prefix": "m",
+      "rows": [
+        { "id": "R1", "text": "速度", "variable": "m_speed" },
+        { "id": "R2", "text": "质量", "variable": "m_quality" }
+      ],
+      "scale": { "min": 1, "max": 3, "labels": ["不满意", "一般", "满意"], "values": [1, 2, 3] }
+    },
+    {
+      "id": "Q07",
+      "type": "likert",
+      "text": "工具内容准确",
+      "variable": "accurate",
+      "scale": {
+        "min": 1, "max": 5,
+        "labels": ["非常不同意", "不同意", "一般", "同意", "非常同意"],
+        "values": [1, 2, 3, 4, 5]
+      }
+    },
+    {
+      "id": "Q08",
+      "type": "single_choice",
+      "text": "您还有哪些补充",
+      "variable": "study_way",
+      "options": [
+        { "id": "A", "label": "其他", "value": 99, "other_text": true },
+        { "id": "B", "label": "其他建议", "value": 98, "other_text": true },
+        { "id": "C", "label": "无", "value": 0 }
+      ]
+    }
+  ],
+  "logic": [
+    { "id": "L1", "type": "visibleIf", "target": "Q05", "condition": { "question": "Q04", "operator": "in", "value": ["A", "Z"] } },
+    { "id": "L2", "type": "visibleIf", "target": "Q04", "condition": { "question": "Q05", "operator": "in", "value": ["A"] } },
+    { "id": "L3", "type": "visibleIf", "target": "Q01", "condition": { "question": "Q08", "operator": "in", "value": ["C"] } }
+  ],
+  "metadata": {}
+}

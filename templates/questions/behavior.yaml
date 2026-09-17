@@ -1,0 +1,49 @@
+# 使用行为题目模板（SurveyCraft 题目库）
+questions:
+  - id: QB01
+    type: single_choice
+    text: 您是否使用过AI学习工具（如ChatGPT、文心一言、Kimi等）
+    construct: 使用行为
+    variable: used_ai
+    note: 筛选题，常作为后续题目的 visibleIf 条件
+    options:
+      - { id: A, label: 使用过, value: 1 }
+      - { id: B, label: 没有使用过, value: 2 }
+
+  - id: QB02
+    type: single_choice
+    text: 您使用AI学习工具的频率是
+    construct: 使用行为
+    variable: usage_frequency
+    analysis_role: independent_variable
+    options:
+      - { id: A, label: 每天多次, value: 1 }
+      - { id: B, label: 每天一次, value: 2 }
+      - { id: C, label: 每周几次, value: 3 }
+      - { id: D, label: 每月几次, value: 4 }
+      - { id: E, label: 更少, value: 5 }
+
+  - id: QB03
+    type: multiple_choice
+    text: 您主要通过哪些渠道使用AI学习工具（可多选）
+    construct: 使用行为
+    variable: usage_channels
+    options:
+      - { id: A, label: 网页版, value: 1 }
+      - { id: B, label: 手机App, value: 2 }
+      - { id: C, label: 微信小程序, value: 3 }
+      - { id: D, label: 浏览器插件, value: 4 }
+      - { id: E, label: 其他, value: 99, other_text: true }
+
+  - id: QB04
+    type: single_choice
+    text: 您最常使用AI学习工具的场景是
+    construct: 使用行为
+    variable: usage_scene
+    options:
+      - { id: A, label: 课程作业, value: 1 }
+      - { id: B, label: 论文写作, value: 2 }
+      - { id: C, label: 语言学习, value: 3 }
+      - { id: D, label: 编程学习, value: 4 }
+      - { id: E, label: 知识问答, value: 5 }
+      - { id: F, label: 其他, value: 99, other_text: true }

@@ -1,0 +1,11 @@
+pandas>=2.0
+numpy>=1.26
+openpyxl>=3.1
+matplotlib>=3.8
+python-docx>=1.1
+PyYAML>=6.0
+jsonschema>=4.20
+pytest>=8.0
+scipy>=1.11
+statsmodels>=0.14
+pingouin>=0.5.5

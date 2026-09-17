@@ -1,0 +1,57 @@
+# 满意度量表题目模板（SurveyCraft 题目库）
+# 量表规范：labels 与 values 一一对应；反向题必须标记 reverse_scored: true
+questions:
+  - id: QS01
+    type: likert
+    text: 总体而言，我对AI学习工具的使用体验感到满意
+    construct: 满意度
+    variable: overall_satisfaction
+    analysis_role: dependent_variable
+    reverse_scored: false
+    scale:
+      min: 1
+      max: 5
+      labels: [非常不同意, 不同意, 一般, 同意, 非常同意]
+      values: [1, 2, 3, 4, 5]
+
+  - id: QS02
+    type: likert
+    text: AI学习工具常常让我难以集中注意力（反向题）
+    construct: 满意度
+    variable: distraction
+    analysis_role: dependent_variable
+    reverse_scored: true
+    note: 反向题：同意程度越高，满意度构念得分越低；计分前需反向处理
+    scale:
+      min: 1
+      max: 5
+      labels: [非常不同意, 不同意, 一般, 同意, 非常同意]
+      values: [1, 2, 3, 4, 5]
+
+  - id: QS03
+    type: matrix_single
+    text: 请评价您对AI学习工具以下方面的满意程度
+    construct: 满意度
+    variable_prefix: sat
+    analysis_role: dependent_variable
+    rows:
+      - { id: R1, text: 答案生成质量, variable: sat_quality }
+      - { id: R2, text: 响应速度, variable: sat_speed }
+      - { id: R3, text: 操作易用性, variable: sat_ease }
+      - { id: R4, text: 内容丰富度, variable: sat_richness }
+    scale:
+      min: 1
+      max: 5
+      labels: [非常不满意, 不满意, 一般, 满意, 非常满意]
+      values: [1, 2, 3, 4, 5]
+
+  - id: QS04
+    type: nps
+    text: 您向同学推荐AI学习工具的可能性有多大
+    construct: 满意度
+    variable: nps_score
+    scale:
+      min: 0
+      max: 10
+      labels: [完全不可能, 中立, 非常可能]
+      values: [0, 5, 10]
